@@ -3,6 +3,9 @@ import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 
 export class BasicLambdaStack extends cdk.Stack {
+
+    //Making the object accessible for reusablility
+    public readonly lambdaFunction: lambda.Function
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
@@ -10,7 +13,7 @@ export class BasicLambdaStack extends cdk.Stack {
         const function_name = 'ranjith-cdk-lambda';
         const lambda_path = 'src/lambda/basic_lambda';
 
-        const handler = new lambda.Function(this, function_name, {
+        this.lambdaFunction = new lambda.Function(this, function_name, {
             functionName: function_name,
             runtime: lambda.Runtime.NODEJS_20_X,
             code: lambda.Code.fromAsset(lambda_path),
